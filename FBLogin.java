@@ -24,41 +24,55 @@ public class FBLogin
 {
 	private static String file_name = "page2.html";
 	
-	public static void getImage(String url) {
+public static void getImage(String url) {
 
-		  url.replaceAll("%3A", ":");
-		  url.replaceAll("%2F", "/");
-		  System.out.println("url: " + url);
+		  //System.out.println("url: " + url);
 		  String img_url = "";
           int i;
-		  if (url.indexOf("fbcdn", 0) >= 0) 
-		  {
+		  if (url.indexOf("fbcdn", 0) >= 0) {
+			  img_url = url;
 			  i = url.indexOf("src=", 0);
-			  if (i >= 0)
-			  {
-				  img_url = url.substring(i + "src=".length());
+			  if (i >= 0) {
+				  img_url = url;img_url = url.substring(i + "src=".length());
 			      i = img_url.indexOf("&amp", 0);	  
 			      img_url = img_url.substring(0, i);
-			      img_url.replaceAll("%3A", ":");
-				  img_url.replaceAll("%2F", "/");
+			      i = img_url.indexOf("%3A");
+			      while (i >= 0) {
+			    	  img_url = img_url.substring(0, i) + ":" + img_url.substring(i + "%3A".length());
+			    	  i = img_url.indexOf("%3A");
+			      }
+			      i = img_url.indexOf("%2F");
+			      while (i >= 0) {
+			    	  img_url = img_url.substring(0, i) + "/" + img_url.substring(i + "%2F".length());
+			    	  i = img_url.indexOf("%2F");
+			      }
 		      }
+			  
+			  if (img_url.endsWith(".png") == false && 
+	        	  img_url.endsWith(".gif") == false &&
+	        	  img_url.endsWith(".jpg") == false) {
+				  if (img_url.indexOf(".jpg") >= 0)
+					  img_url = img_url.substring(0, img_url.indexOf(".jpg") + ".jpg".length());
+				  else if (img_url.indexOf(".gif") >= 0)
+					  img_url = img_url.substring(0, img_url.indexOf(".gif") + ".gif".length());
+				  else if (img_url.indexOf(".png") >= 0)
+					  img_url = img_url.substring(0, img_url.indexOf(".png") + ".png".length());
+			  }
 		  }
 		  else if (url.endsWith(".png") == true || 
-        	       //url.endsWith(".gif") == true ||
-        	       url.endsWith(".jpg") == true)
-          {
+        	       url.endsWith(".gif") == true ||
+        	       url.endsWith(".jpg") == true) {
 			  img_url = url;
           }
         		  
-          if (img_url.length() > 0)
-          {
+          if (img_url.length() > 0) {
         	  System.out.println(img_url);
-        	  /*try {
+        	  try {
 				  BufferedReader r = new BufferedReader(new InputStreamReader(new URL(img_url).openStream()));
 			  } 
         	  catch (Exception e) {
    		          System.err.println("Error: " + e.getMessage());
-   		      }*/
+   		      }
           }  
 	}
 	
