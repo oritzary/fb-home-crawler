@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import javax.swing.text.html.HTML;
@@ -21,6 +24,44 @@ public class FBLogin
 {
 	private static String file_name = "page2.html";
 	
+	public static void getImage(String url) {
+
+		  url.replaceAll("%3A", ":");
+		  url.replaceAll("%2F", "/");
+		  System.out.println("url: " + url);
+		  String img_url = "";
+          int i;
+		  if (url.indexOf("fbcdn", 0) >= 0) 
+		  {
+			  i = url.indexOf("src=", 0);
+			  if (i >= 0)
+			  {
+				  img_url = url.substring(i + "src=".length());
+			      i = img_url.indexOf("&amp", 0);	  
+			      img_url = img_url.substring(0, i);
+			      img_url.replaceAll("%3A", ":");
+				  img_url.replaceAll("%2F", "/");
+		      }
+		  }
+		  else if (url.endsWith(".png") == true || 
+        	       //url.endsWith(".gif") == true ||
+        	       url.endsWith(".jpg") == true)
+          {
+			  img_url = url;
+          }
+        		  
+          if (img_url.length() > 0)
+          {
+        	  System.out.println(img_url);
+        	  /*try {
+				  BufferedReader r = new BufferedReader(new InputStreamReader(new URL(img_url).openStream()));
+			  } 
+        	  catch (Exception e) {
+   		          System.err.println("Error: " + e.getMessage());
+   		      }*/
+          }  
+	}
+	
 	public static void readHtmlPage() {
 		
 		  try {
@@ -38,7 +79,8 @@ public class FBLogin
 		        	   if (i >= 0)
 		        	   {
 		        		   j = strLine.indexOf("\"", i + 1);
-		        		   System.out.println(k + " " + strLine.substring(i, j));
+		        		   getImage(strLine.substring(i, j));
+		        		   //System.out.println(k + " " + strLine.substring(i, j));
 		        	   }
 		           }
 		           k++;
@@ -84,7 +126,7 @@ public class FBLogin
 	
 	public static void main(String[] args) throws Exception {
 	  	
-		getHtmlPage();
+		//getHtmlPage();
 		readHtmlPage();
         
     }
