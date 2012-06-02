@@ -61,9 +61,9 @@ public class FBLogin
         
         HtmlForm form = form_list.get(0);//page.getFormByName("login_form");
         HtmlTextInput email = (HtmlTextInput) form.getInputByName("email");
-        email.setText("hongkedavid@gmail.com");
+        email.setText("");
         HtmlPasswordInput passwd = (HtmlPasswordInput) form.getInputByName("pass");
-        passwd.setText("88927Hk");
+        passwd.setText("");
         
         HtmlSubmitInput button = (HtmlSubmitInput) form.getInputByValue("Log In");
         HtmlPage page2 = (HtmlPage) button.click();
