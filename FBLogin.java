@@ -21,8 +21,7 @@ public class FBLogin
 {
    private static String file_name = "page2";
 	
-   private static String fileName = "page2";         
-   public static void readHtmlPage(FileOutputStream out) {
+        public static void readHtmlPage(FileOutputStream out) {
         	
               try {
             	   FileInputStream fstream = new FileInputStream(fileName);
@@ -35,6 +34,7 @@ public class FBLogin
                           }                              
                    }                  
                    in.close();
+                   out.close();
               } 
               catch (Exception e) {
                    System.err.println("Error: " + e.getMessage());
