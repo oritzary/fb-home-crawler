@@ -22,7 +22,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 public class FBLogin
 {
-	private static String file_name = "page2.html";
+	private static String fileName = "page2";
+	private static String inputName = "page2.html";
 	private static String outFileName = "output";			
 	public static void main(String[] args) throws Exception {	 		
 	    getHtmlPage();
@@ -32,7 +33,7 @@ public class FBLogin
 	public static void readHtmlPage() {
         
 	      try {
-	           FileInputStream fstream = new FileInputStream(file_name);
+	           FileInputStream fstream = new FileInputStream(inputName);
 	           FileWriter outFile = new FileWriter(outFileName);
 	           DataInputStream in = new DataInputStream(fstream);
 	           BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -84,7 +85,7 @@ public class FBLogin
 		form_list = page2.getForms();
 		System.out.println(form_list.size() + " forms in this page");
 
-		File page2_fd = new File(file_name);
+		File page2_fd = new File(fileName);
 		page2.save(page2_fd);
 		System.out.println(page2_fd.length() + " bytes");
 		    
