@@ -24,7 +24,7 @@ public class FBLogin
 {
 	private static String file_name = "page2.html";
 	
-public static void getImage(String url) {
+	public static void getImage(String url) {
 
 		  //System.out.println("url: " + url);
 		  String img_url = "";
@@ -68,7 +68,25 @@ public static void getImage(String url) {
           if (img_url.length() > 0) {
         	  System.out.println(img_url);
         	  try {
-				  BufferedReader r = new BufferedReader(new InputStreamReader(new URL(img_url).openStream()));
+        		  /*
+        		  BufferedReader r = new BufferedReader(new InputStreamReader(new URL(img_url).openStream()));
+        		  BufferedImage bi = ImageIO.read(new URL(img_url));
+				  File f = new File(img_url);
+				  if (url.endsWith(".jpg") == true)
+				      ImageIO.write(bi, "jpg", f);
+				  if (url.endsWith(".png") == true)
+				      ImageIO.write(bi, "png", f);
+				  else if (url.endsWith(".gif") == true)
+				      ImageIO.write(bi, "gif", f);
+				  */
+        		  InputStream in = new URL(img_url).openStream();
+        		  OutputStream out = new BufferedOutputStream(new FileOutputStream(img_url.substring(img_url.lastIndexOf("/") + 1)));
+        		  int b; 
+        		  while ((b = in.read()) != -1) {
+                      out.write(b);
+                  }
+                  out.close();
+                  in.close();
 			  } 
         	  catch (Exception e) {
    		          System.err.println("Error: " + e.getMessage());
